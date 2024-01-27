@@ -30,8 +30,8 @@ class Server:
         page with a given page size."""
         assert isinstance(page, int) and page >= 1
         assert isinstance(page_size, int) and page_size >= 1
+        start_index, end_index = index_range(page, page_size)
         try:
-            start_index, end_index = index_range(page, page_size)
             return self.dataset()[start_index:end_index]
         except IndexError:
             return []
