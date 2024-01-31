@@ -17,12 +17,13 @@ class FIFOCache(BaseCaching):
             return None
         if self.cache_data.get(key) != item:
             self.cache_data[key] = item
+            if key not in self.insertion_order:
+                self.insertion_order.append(key)
         if len(self.cache_data) > self.MAX_ITEMS:
             # Get the key of the first inserted item (FIFO eviction)
             descarded_key = self.insertion_order.pop(0)
             del self.cache_data[descarded_key]
             print(f"DISCARD: {descarded_key}")
-        self.insertion_order.append(key)
 
     def get(self, key):
         """Retrieve an item from the cache."""
