@@ -16,7 +16,8 @@ class FIFOCache(BaseCaching):
         """Add an item to the cache."""
         if not key and not item:
             return None
-        self.cache_data[key] = item
+        if self.cache_data.get(key) != item:
+            self.cache_data[key] = item
         if len(self.cache_data) > self.MAX_ITEMS:
             # Get the key of the first inserted item (FIFO eviction)
             descarded_key = self.insertion_order.popleft()
