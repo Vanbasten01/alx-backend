@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Module implementing a FIFO cache system"""
-from collections import deque
 
 BaseCaching = __import__("base_caching").BaseCaching
 
@@ -10,7 +9,7 @@ class FIFOCache(BaseCaching):
     def __init__(self):
         """Initialize the FIFO cache."""
         super().__init__()
-        self.insertion_order = deque()
+        self.insertion_order = []
 
     def put(self, key, item):
         """Add an item to the cache."""
@@ -20,7 +19,7 @@ class FIFOCache(BaseCaching):
             self.cache_data[key] = item
         if len(self.cache_data) > self.MAX_ITEMS:
             # Get the key of the first inserted item (FIFO eviction)
-            descarded_key = self.insertion_order.popleft()
+            descarded_key = self.insertion_order.pop(0)
             del self.cache_data[descarded_key]
             print(f"DISCARD: {descarded_key}")
         self.insertion_order.append(key)
