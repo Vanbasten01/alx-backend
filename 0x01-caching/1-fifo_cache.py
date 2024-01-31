@@ -13,7 +13,7 @@ class FIFOCache(BaseCaching):
 
     def put(self, key, item):
         """Add an item to the cache."""
-        if not key or  not item:
+        if not key or not item:
             return None
         if self.cache_data.get(key) != item:
             self.cache_data[key] = item
