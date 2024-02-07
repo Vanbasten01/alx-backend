@@ -36,6 +36,7 @@ def get_locale():
 
 
 def get_user(login_as):
+    """Retrieve user information based on the provided login ID."""
     if not login_as or not users.get(int(login_as)):
         return None
     return users.get(int(login_as))
@@ -43,6 +44,8 @@ def get_user(login_as):
 
 @app.before_request
 def before_request():
+    """Set the user information as a global variable
+    before processing each request."""
     g.user = get_user(request.args.get('login_as'))
 
 
